@@ -1,0 +1,26 @@
+CC: gcc
+CFLAGS: -Iinclude
+LDFLAGS: -l:hello.so -L/home/talel/Documents/SelfWork/pymake/examples
+EXEC: main
+LIB: hello.so
+
+main:
+  dep: main.o hello.so
+  cmd: $(CC) $< $(LDFLAGS) -o $@
+
+main.o:
+  dep: main.c
+  cmd: $(CC) $(CFLAGS) -c $<
+
+hello.so:
+  dep: hello.o
+  cmd: $(CC) $< -shared -o $@
+
+hello.o:
+  dep: hello.c
+  cmd: $(CC) $(CFLAGS) -c $<
+
+clean:
+  cmd: |
+    echo Cleaning
+    rm -rf *.o *.so $(EXEC)
