@@ -1,5 +1,6 @@
 import yaml
 import os
+import logging
 
 class YamlHandler:
     def __init__(self, path):
@@ -13,10 +14,12 @@ class YamlHandler:
     """
     def sanity(self):
         if not os.path.exists(self.path):
-            raise AssertionError(f"File {self.path} does not exist!")
+            logging.error(f"File {self.path} does not exist!")
+            sys.exit(1)
 
         if not os.path.isfile(self.path):
-            raise AssertionError(f"File {self.path} is not a regular file!")
+            logging.error(f"File {self.path} is not a regular file!")
+            sys.exit(1)
 
     def load(self):
         with open(self.path, 'r') as yml_file:

@@ -23,6 +23,9 @@ if __name__ == "__main__":
 
     cwd = os.getcwd()
     if args.directory:
+        if not os.path.isdir(args.directory):
+            logging.error(f"{args.directory} is not a directoy !")
+            sys.exit(1)
         os.chdir(args.directory)
 
     handler = lib.PyMakeHandler("PyMakefile.yml")
